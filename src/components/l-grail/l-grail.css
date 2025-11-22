@@ -1,0 +1,40 @@
+/* src/components/grail/grail.css */
+.l-grail {
+	display: grid;
+	width: 100%;
+	min-height: 100vh;
+
+	/* Default Layout: Mobile (Stacked) */
+	grid-template-columns: 1fr;
+	grid-template-rows: auto auto 1fr auto auto;
+	grid-template-areas:
+		'header'
+		'main'
+		'side'
+		'footer';
+	gap: 20px;
+}
+
+.l-grail__header {
+	grid-area: header;
+}
+.l-grail__main {
+	grid-area: main;
+}
+.l-grail__side {
+	grid-area: side;
+}
+.l-grail__footer {
+	grid-area: footer;
+}
+
+/* Desktop Layout */
+@media (width >= 768px) {
+	.l-grail {
+		/* Columns: Main -- space -- Side */
+		grid-template: 'header header header' auto '.      .      .' 60px 'main   .      side' 1fr '.      .      .' 80px 'footer footer footer' auto / 1fr 40px 300px;
+
+		/* Rows: Header -- space -- Body -- space -- Footer */
+		gap: 0; /* Reset gap as we use tracks for spacing */
+	}
+}

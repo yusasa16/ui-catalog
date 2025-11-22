@@ -1,0 +1,47 @@
+/* src/components/hero/hero.css */
+.c-hero {
+	/* Define as container for style queries */
+	container-name: c-hero;
+	container-type: normal;
+
+	/* Component Variables */
+	--_hero-bg: var(--color-gray-100);
+	--_hero-font-family: var(--font-sans);
+	--_hero-title-color: var(--color-gray-800);
+	--_hero-subtitle-color: var(--color-gray-600);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	padding: 80px 20px;
+	background-color: var(--_hero-bg);
+	font-family: var(--_hero-font-family);
+	min-height: 400px;
+	font-size: 1rem; /* Reset reference */
+}
+
+.c-hero__content {
+	max-width: 800px;
+}
+
+.c-hero__title {
+	font-size: 3.5rem;
+	line-height: 1.2;
+	margin-bottom: 20px;
+	color: var(--_hero-title-color);
+	font-weight: 800;
+}
+
+.c-hero__subtitle {
+	font-size: 1.25rem;
+	color: var(--_hero-subtitle-color);
+	margin-bottom: 40px;
+	line-height: 1.6;
+}
+
+.c-hero__actions {
+	display: flex;
+	gap: 15px;
+	justify-content: center;
+}

@@ -1,13 +1,16 @@
+import 'kiso.css';
+import '../src/styles/variables.css';
+
 /** @type { import('@storybook/html-vite').Preview } */
 const preview = {
-  parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
-  },
+	parameters: {
+		controls: {
+			matchers: {
+				color: /(background|color)$/i,
+				date: /Date$/i,
+			},
+		},
+	},
 };
 
 export default preview;

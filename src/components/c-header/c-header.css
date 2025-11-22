@@ -1,0 +1,40 @@
+/* src/components/header/header.css */
+.c-header {
+	/* Define as container for style queries */
+	container-name: c-header;
+	container-type: normal;
+
+	/* Component Variables */
+	--_header-bg: var(--color-white);
+	--_header-border-color: rgb(0 0 0 / 10%);
+	--_header-font-family: var(--font-sans);
+	--_header-text-color: var(--color-gray-900);
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 20px;
+	background-color: var(--_header-bg);
+	border-bottom: 1px solid var(--_header-border-color);
+	font-family: var(--_header-font-family);
+	font-size: 1rem; /* Reset reference */
+}
+
+.c-header__logo {
+	font-weight: 900;
+	font-size: 1.25rem; /* 20px */
+	color: var(--_header-text-color);
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.c-header__logo svg {
+	display: inline-block;
+	vertical-align: top;
+}
+
+.c-header__actions {
+	display: flex;
+	gap: 10px;
+}
