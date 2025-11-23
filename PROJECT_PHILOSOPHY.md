@@ -164,7 +164,16 @@ While we avoid margins on _Components_, `margin` is essential in specific contex
 }
 ```
 
-### 3. AI-Readability Strategies
+### 5. Interaction Philosophy: "Native Over Script"
+
+We strive to implement UI interactions without JavaScript whenever possible, relying on the advancing capabilities of modern HTML and CSS.
+
+- **Zero-JS Default**: Before reaching for an event listener, ask: "Can this be done with HTML/CSS?"
+- **Modern Primitives**: Use `<details>` for accordions, `<dialog>` for modals, `:popover` for overlays, and scroll-driven animations.
+- **CSS State**: Leverage `:checked`, `:target`, and `:focus-within` to handle UI states.
+- **Role of JS**: JavaScript is reserved strictly for business logic, API calls, and complex state that HTML cannot handle.
+
+### 6. AI-Readability Strategies
 
 To maximize the utility of this repo for AI training, we adhere to the following:
 
@@ -174,7 +183,7 @@ To maximize the utility of this repo for AI training, we adhere to the following
   - _Good_: `/* z-index: 10; Ensure header stays above hero content */`
   - _Bad_: `/* z-index: 10; */`
 
-### 4. Coding Style Guide
+### 7. Coding Style Guide
 
 #### Typography & Units
 
