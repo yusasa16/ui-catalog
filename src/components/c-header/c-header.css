@@ -5,28 +5,30 @@
 	container-type: normal;
 
 	/* Component Variables */
-	--_header-bg: var(--color-white);
-	--_header-border-color: rgb(0 0 0 / 10%);
-	--_header-font-family: var(--font-sans);
-	--_header-text-color: var(--color-gray-900);
+	--_bg: var(--sys-bg-surface);
+	--_border-color: var(--sys-border-weak);
+	--_font-family: var(--sys-font-body);
+	--_text-color: var(--sys-text-main);
+	--_padding-y: var(--ref-space-4);
+	--_padding-x: var(--ref-space-5);
 
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 15px 20px;
-	background-color: var(--_header-bg);
-	border-bottom: 1px solid var(--_header-border-color);
-	font-family: var(--_header-font-family);
+	padding: var(--_padding-y) var(--_padding-x);
+	background-color: var(--_bg);
+	border-bottom: 1px solid var(--_border-color);
+	font-family: var(--_font-family);
 	font-size: 1rem; /* Reset reference */
 }
 
 .c-header__logo {
 	font-weight: 900;
 	font-size: 1.25rem; /* 20px */
-	color: var(--_header-text-color);
+	color: var(--_text-color);
 	display: flex;
 	align-items: center;
-	gap: 10px;
+	gap: var(--ref-space-2); /* 8px, close to 10px */
 }
 
 .c-header__logo svg {
@@ -36,5 +38,5 @@
 
 .c-header__actions {
 	display: flex;
-	gap: 10px;
+	gap: var(--ref-space-2); /* 8px, close to 10px */
 }

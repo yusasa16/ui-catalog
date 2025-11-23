@@ -5,7 +5,7 @@
 
 	/* Default: 1 column */
 	grid-template-columns: 1fr;
-	gap: var(--grid-gap, 20px);
+	gap: var(--grid-gap, var(--ref-space-5));
 }
 
 /*

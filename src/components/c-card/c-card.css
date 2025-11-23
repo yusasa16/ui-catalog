@@ -5,30 +5,31 @@
 	container-type: normal;
 
 	/* Component Variables */
-	--_card-bg: var(--color-white);
-	--_card-border-radius: 16px;
-	--_card-shadow: var(--shadow-lg);
-	--_card-shadow-hover: var(--shadow-xl);
-	--_card-transition: transform 0.3s ease, box-shadow 0.3s ease;
-	--_card-font-family: var(--font-sans);
-	--_card-title-color: var(--color-gray-800);
-	--_card-desc-color: var(--color-gray-600);
-	--_card-action-color: var(--color-primary-500);
-	--_card-action-color-hover: var(--color-primary-600);
+	--_bg: var(--sys-bg-surface);
+	--_border-radius: 16px;
+	--_shadow: var(--sys-elevation-md);
+	--_shadow-hover: var(--sys-elevation-lg);
+	--_transition: transform 0.3s ease, box-shadow 0.3s ease;
+	--_font-family: var(--sys-font-body);
+	--_title-color: var(--sys-text-main);
+	--_desc-color: var(--sys-text-muted);
+	--_action-color: var(--sys-text-action); /* Assuming link style */
+	--_action-color-hover: var(--sys-bg-action-hover); /* Using bg hover for text hover for now */
+	--_padding: var(--ref-space-6);
 
-	background: var(--_card-bg);
-	border-radius: var(--_card-border-radius);
-	box-shadow: var(--_card-shadow);
+	background: var(--_bg);
+	border-radius: var(--_border-radius);
+	box-shadow: var(--_shadow);
 	overflow: hidden;
-	transition: var(--_card-transition);
+	transition: var(--_transition);
 	max-width: 340px;
-	font-family: var(--_card-font-family);
+	font-family: var(--_font-family);
 	font-size: 1rem; /* Reset reference */
 }
 
 .c-card:hover {
 	transform: translateY(-5px);
-	box-shadow: var(--_card-shadow-hover);
+	box-shadow: var(--_shadow-hover);
 }
 
 .c-card__image {
@@ -38,19 +39,19 @@
 }
 
 .c-card__content {
-	padding: 24px;
+	padding: var(--_padding);
 }
 
 .c-card__title {
-	margin: 0 0 12px;
+	margin: 0 0 var(--ref-space-3);
 	font-size: 1.25rem; /* 20px */
-	color: var(--_card-title-color);
+	color: var(--_title-color);
 	font-weight: 700;
 }
 
 .c-card__description {
-	margin: 0 0 20px;
-	color: var(--_card-desc-color);
+	margin: 0 0 var(--ref-space-5);
+	color: var(--_desc-color);
 	line-height: 1.6;
 	font-size: 0.95rem;
 }
@@ -58,11 +59,11 @@
 .c-card__action {
 	display: inline-block;
 	font-weight: 600;
-	color: var(--_card-action-color);
+	color: var(--_action-color);
 	text-decoration: none;
 	transition: color 0.2s;
 }
 
 .c-card__action:hover {
-	color: var(--_card-action-color-hover);
+	color: var(--_action-color-hover);
 }

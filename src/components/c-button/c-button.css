@@ -1,6 +1,4 @@
 /* src/components/button/button.css */
-
-/* src/components/button/button.css */
 .c-button {
 	/* Container for Style Queries - No visual styles here */
 	display: contents;
@@ -8,42 +6,38 @@
 
 .c-button button {
 	/* Component Variables */
-	--_button-font-family: var(--font-sans);
-	--_button-font-weight: 600;
-	--_button-border-radius: 3em;
-	--_button-transition: all 0.2s ease-in-out;
+	--_font-family: var(--sys-font-body);
+	--_font-weight: 600;
+	--_border-radius: 3em;
+	--_transition: all 0.2s ease-in-out;
 
 	/* Default (Primary) Variables */
-	--_button-color: var(--color-white);
-	--_button-bg: linear-gradient(135deg, var(--color-primary-500) 0%, var(--color-primary-600) 100%);
-	--_button-shadow: 0 4px 15px 0 rgb(118 75 162 / 40%);
-	--_button-bg-hover: linear-gradient(
-		135deg,
-		var(--color-primary-500) 0%,
-		var(--color-primary-600) 100%
-	);
-	--_button-shadow-hover: 0 8px 25px 0 rgb(118 75 162 / 50%);
-	--_button-transform-hover: translateY(-2px);
+	--_color: var(--sys-text-inverse);
+	--_bg: var(--sys-bg-action);
+	--_shadow: var(--sys-elevation-base);
+	--_bg-hover: var(--sys-bg-action-hover);
+	--_shadow-hover: var(--sys-elevation-md);
+	--_transform-hover: translateY(-2px);
 
-	font-family: var(--_button-font-family);
-	font-weight: var(--_button-font-weight);
+	font-family: var(--_font-family);
+	font-weight: var(--_font-weight);
 	border: 0;
-	border-radius: var(--_button-border-radius);
+	border-radius: var(--_border-radius);
 	cursor: pointer;
 	display: inline-block;
 	line-height: 1;
-	transition: var(--_button-transition);
+	transition: var(--_transition);
 	text-decoration: none;
 	font-size: 1rem; /* Reset reference */
-	color: var(--_button-color);
-	background: var(--_button-bg);
-	box-shadow: var(--_button-shadow);
+	color: var(--_color);
+	background: var(--_bg);
+	box-shadow: var(--_shadow);
 }
 
 .c-button button:hover {
-	background: var(--_button-bg-hover);
-	transform: var(--_button-transform-hover);
-	box-shadow: var(--_button-shadow-hover);
+	background: var(--_bg-hover);
+	transform: var(--_transform-hover);
+	box-shadow: var(--_shadow-hover);
 }
 
 /* =========================================
@@ -52,15 +46,15 @@
 
 @container style(--variant: secondary) {
 	.c-button button {
-		--_button-color: var(--color-gray-900);
-		--_button-bg: transparent;
-		--_button-shadow: rgb(0 0 0 / 15%) 0px 0px 0px 1px inset;
-		--_button-bg-hover: var(--color-secondary-bg);
-		--_button-shadow-hover: rgb(0 0 0 / 15%) 0px 0px 0px 1px inset;
+		--_color: var(--sys-text-main);
+		--_bg: transparent;
+		--_shadow: var(--sys-border-weak) 0px 0px 0px 1px inset;
+		--_bg-hover: var(--sys-bg-muted);
+		--_shadow-hover: var(--sys-border-weak) 0px 0px 0px 1px inset;
 	}
 
 	.c-button button:hover {
-		background-color: var(--_button-bg-hover);
+		background-color: var(--_bg-hover);
 	}
 }
 
@@ -71,20 +65,20 @@
 @container style(--size: small) {
 	.c-button button {
 		font-size: 0.75rem;
-		padding: 10px 16px;
+		padding: var(--ref-space-2) var(--ref-space-4);
 	}
 }
 
 @container style(--size: medium) {
 	.c-button button {
 		font-size: 0.875rem;
-		padding: 11px 20px;
+		padding: var(--ref-space-3) var(--ref-space-5);
 	}
 }
 
 @container style(--size: large) {
 	.c-button button {
 		font-size: 1rem;
-		padding: 12px 24px;
+		padding: var(--ref-space-4) var(--ref-space-6);
 	}
 }

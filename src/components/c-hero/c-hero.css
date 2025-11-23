@@ -5,18 +5,20 @@
 	container-type: normal;
 
 	/* Component Variables */
-	--_hero-bg: var(--color-gray-100);
-	--_hero-font-family: var(--font-sans);
-	--_hero-title-color: var(--color-gray-800);
-	--_hero-subtitle-color: var(--color-gray-600);
+	--_bg: var(--sys-bg-muted);
+	--_font-family: var(--sys-font-body);
+	--_title-color: var(--sys-text-main);
+	--_subtitle-color: var(--sys-text-muted);
+	--_padding-y: var(--ref-space-20);
+	--_padding-x: var(--ref-space-5);
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
-	padding: 80px 20px;
-	background-color: var(--_hero-bg);
-	font-family: var(--_hero-font-family);
+	padding: var(--_padding-y) var(--_padding-x);
+	background-color: var(--_bg);
+	font-family: var(--_font-family);
 	min-height: 400px;
 	font-size: 1rem; /* Reset reference */
 }
@@ -28,20 +30,20 @@
 .c-hero__title {
 	font-size: 3.5rem;
 	line-height: 1.2;
-	margin-bottom: 20px;
-	color: var(--_hero-title-color);
+	margin-bottom: var(--ref-space-5);
+	color: var(--_title-color);
 	font-weight: 800;
 }
 
 .c-hero__subtitle {
 	font-size: 1.25rem;
-	color: var(--_hero-subtitle-color);
-	margin-bottom: 40px;
+	color: var(--_subtitle-color);
+	margin-bottom: var(--ref-space-8); /* 32px, used instead of 40px */
 	line-height: 1.6;
 }
 
 .c-hero__actions {
 	display: flex;
-	gap: 15px;
+	gap: var(--ref-space-4); /* 16px, close to 15px */
 	justify-content: center;
 }

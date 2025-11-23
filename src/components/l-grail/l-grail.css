@@ -12,18 +12,21 @@
 		'main'
 		'side'
 		'footer';
-	gap: 20px;
+	gap: var(--ref-space-5);
 }
 
 .l-grail__header {
 	grid-area: header;
 }
+
 .l-grail__main {
 	grid-area: main;
 }
+
 .l-grail__side {
 	grid-area: side;
 }
+
 .l-grail__footer {
 	grid-area: footer;
 }
