@@ -13,7 +13,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 400px;
+	min-block-size: 400px;
 	padding: var(--_padding-y) var(--_padding-x);
 
 	/* Define as container for style queries */
@@ -26,11 +26,11 @@
 }
 
 .c-hero__content {
-	max-width: 800px;
+	max-inline-size: 800px;
 }
 
 .c-hero__title {
-	margin-bottom: var(--ref-space-5);
+	margin-block-end: var(--ref-space-5);
 	font-size: 3.5rem;
 	font-weight: 800;
 	line-height: 1.2;
@@ -38,7 +38,7 @@
 }
 
 .c-hero__subtitle {
-	margin-bottom: var(--ref-space-8); /* 32px, used instead of 40px */
+	margin-block-end: var(--ref-space-8); /* 32px, used instead of 40px */
 	font-size: 1.25rem;
 	line-height: 1.6;
 	color: var(--_subtitle-color);

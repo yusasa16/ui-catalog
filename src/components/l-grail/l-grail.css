@@ -10,8 +10,8 @@
 		'footer' auto
 		/ 1fr;
 	gap: var(--_gap);
-	width: 100%;
-	min-height: 100vh;
+	inline-size: 100%;
+	min-block-size: 100vh;
 }
 
 .l-grail__header {

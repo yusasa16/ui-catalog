@@ -10,7 +10,7 @@
 	/* Default: 1 column */
 	grid-template-columns: 1fr;
 	gap: var(--_gap);
-	width: 100%;
+	inline-size: 100%;
 }
 
 /*
