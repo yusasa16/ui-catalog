@@ -1,8 +1,10 @@
 /** @type {import('stylelint').Config} */
 export default {
 	extends: ['stylelint-config-standard', 'stylelint-config-recess-order'],
-	plugins: ['stylelint-order'],
+	plugins: ['stylelint-order', 'stylelint-use-logical'],
 	rules: {
+		// 論理プロパティの強制（物理プロパティの使用を禁止）
+		'csstools/use-logical': 'always',
 		// コンポーネントトークンの命名(--_*)を許可
 		'custom-property-pattern': '^(_)?([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
 
