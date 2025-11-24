@@ -56,30 +56,41 @@ To avoid confusion between "things" (Surface, Text) and "states" (Action, Succes
 
 ### 3. Component Tokens (Scoped)
 
+We adopt the **Public/Private API Pattern** (inspired by [CSS Custom Properties as APIs](https://weidesign.engineer/blog/css-architecture-api-pattern/)) to ensure encapsulation while allowing controlled customization.
+
+#### 3.1. Private Variables (Implementation)
+
 - **Prefix**: `--_` (Underscore)
-- **Definition**: Component-specific variables that map Semantic Tokens to local properties.
-- **Role**: Isolation and specific overrides.
+- **Definition**: Internal variables used to style the component.
+- **Role**: Encapsulation. **NEVER** set or read these from outside the component.
 - **Naming Pattern**: `--_{property}` (Component name is omitted for brevity)
-  - `--_bg`: `var(--sys-bg-action)`
 
-#### CRITICAL RULE: Strict Initialization
+#### 3.2. Public Variables (API)
 
-Because we omit the component name (e.g., using `--_bg` instead of `--_button-bg`), there is a high risk of style leakage from parent components if variables are left undefined.
+- **Prefix**: `--{component}-{property}`
+- **Definition**: The public interface exposed for customization.
+- **Role**: Customization. Use these to override component styles from the outside.
+- **Naming Pattern**: `--c-button-bg`, `--l-grid-gap`
 
-**Rule**: **Every component MUST explicitly initialize all local variables it uses.**
+#### 3.3. The Pattern: Fallback Chain
+
+Components must explicitly initialize their private variables by checking for a Public API variable first, then falling back to a Semantic Token (Default).
 
 ```css
-/* BAD: Relies on parent or fallback, risks inheriting parent's --_bg */
 .c-button {
-	background: var(--_bg);
-}
+	/* Private Var = Public API (if set) ?? System Token (Default) */
+	--_bg: var(--c-button-bg, var(--sys-bg-action));
 
-/* GOOD: Explicitly cuts off inheritance by setting a default */
-.c-button {
-	--_bg: var(--sys-bg-action);
+	/* Implementation uses Private Variable */
 	background: var(--_bg);
 }
 ```
+
+This structure ensures:
+
+1.  **Encapsulation**: Internal logic (`--_bg`) is separated from external input.
+2.  **Customizability**: Consumers can set `--c-button-bg` to override the color without fighting specificity.
+3.  **Safety**: If no override is provided, the system token is used as a safe default.
 
 ---
 
