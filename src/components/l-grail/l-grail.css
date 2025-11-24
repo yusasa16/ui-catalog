@@ -1,5 +1,7 @@
 /* src/components/grail/grail.css */
 .l-grail {
+	--_gap: var(--l-grail-gap, var(--ref-space-5));
+
 	display: grid;
 	grid-template:
 		'header' auto
@@ -7,7 +9,7 @@
 		'side' 1fr
 		'footer' auto
 		/ 1fr;
-	gap: var(--ref-space-5);
+	gap: var(--_gap);
 	width: 100%;
 	min-height: 100vh;
 }

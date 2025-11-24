@@ -1,27 +1,32 @@
 /* src/components/grid/grid.css */
 .l-grid {
+	/* Component Variables */
+	--_gap: var(--l-grid-gap, var(--ref-space-5));
+	--_min-item-width: var(--l-grid-min-item-width, 250px);
+	--_cols: var(--l-grid-cols, 1);
+
 	display: grid;
 
 	/* Default: 1 column */
 	grid-template-columns: 1fr;
-	gap: var(--grid-gap, var(--ref-space-5));
+	gap: var(--_gap);
 	width: 100%;
 }
 
 /*
   Simple Responsive Grid
-  Usage: style="--min-item-width: 250px"
+  Usage: style="--l-grid-min-item-width: 250px"
 */
-.l-grid:where([style*='--min-item-width']) {
-	grid-template-columns: repeat(auto-fill, minmax(var(--min-item-width), 1fr));
+.l-grid:where([style*='--l-grid-min-item-width']) {
+	grid-template-columns: repeat(auto-fill, minmax(var(--_min-item-width), 1fr));
 }
 
 /*
   Fixed Column Grid
-  Usage: style="--cols: 3"
+  Usage: style="--l-grid-cols: 3"
 */
-.l-grid:where([style*='--cols']) {
-	grid-template-columns: repeat(var(--cols), 1fr);
+.l-grid:where([style*='--l-grid-cols']) {
+	grid-template-columns: repeat(var(--_cols), 1fr);
 }
 
 /* Mobile adjustments if needed can go here,

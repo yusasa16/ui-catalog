@@ -1,12 +1,14 @@
 /* src/components/hero/hero.css */
 .c-hero {
 	/* Component Variables */
-	--_bg: var(--sys-bg-muted);
-	--_font-family: var(--sys-font-body);
-	--_title-color: var(--sys-text-main);
-	--_subtitle-color: var(--sys-text-muted);
-	--_padding-y: var(--ref-space-20);
-	--_padding-x: var(--ref-space-5);
+
+	/* Component Variables */
+	--_bg: var(--c-hero-bg, var(--sys-bg-muted));
+	--_font-family: var(--c-hero-font-family, var(--sys-font-body));
+	--_title-color: var(--c-hero-title-color, var(--sys-text-main));
+	--_subtitle-color: var(--c-hero-subtitle-color, var(--sys-text-muted));
+	--_padding-y: var(--c-hero-padding-y, var(--ref-space-20));
+	--_padding-x: var(--c-hero-padding-x, var(--ref-space-5));
 
 	display: flex;
 	align-items: center;

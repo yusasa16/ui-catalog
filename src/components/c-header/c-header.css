@@ -1,12 +1,14 @@
 /* src/components/header/header.css */
 .c-header {
 	/* Component Variables */
-	--_bg: var(--sys-bg-surface);
-	--_border-color: var(--sys-border-weak);
-	--_font-family: var(--sys-font-body);
-	--_text-color: var(--sys-text-main);
-	--_padding-y: var(--ref-space-4);
-	--_padding-x: var(--ref-space-5);
+
+	/* Component Variables */
+	--_bg: var(--c-header-bg, var(--sys-bg-surface));
+	--_border-color: var(--c-header-border-color, var(--sys-border-weak));
+	--_font-family: var(--c-header-font-family, var(--sys-font-body));
+	--_text-color: var(--c-header-text-color, var(--sys-text-main));
+	--_padding-y: var(--c-header-padding-y, var(--ref-space-4));
+	--_padding-x: var(--c-header-padding-x, var(--ref-space-5));
 
 	display: flex;
 	align-items: center;

@@ -1,17 +1,23 @@
 /* src/components/card/card.css */
 .c-card {
 	/* Component Variables */
-	--_bg: var(--sys-bg-surface);
-	--_border-radius: 16px;
-	--_shadow: var(--sys-elevation-md);
-	--_shadow-hover: var(--sys-elevation-lg);
-	--_transition: transform 0.3s ease, box-shadow 0.3s ease;
-	--_font-family: var(--sys-font-body);
-	--_title-color: var(--sys-text-main);
-	--_desc-color: var(--sys-text-muted);
-	--_action-color: var(--sys-text-action); /* Assuming link style */
-	--_action-color-hover: var(--sys-bg-action-hover); /* Using bg hover for text hover for now */
-	--_padding: var(--ref-space-6);
+
+	/* Component Variables */
+	--_bg: var(--c-card-bg, var(--sys-bg-surface));
+	--_border-radius: var(--c-card-border-radius, 16px);
+	--_shadow: var(--c-card-shadow, var(--sys-elevation-md));
+	--_shadow-hover: var(--c-card-shadow-hover, var(--sys-elevation-lg));
+	--_transition: var(--c-card-transition, transform 0.3s ease, box-shadow 0.3s ease);
+	--_font-family: var(--c-card-font-family, var(--sys-font-body));
+	--_title-color: var(--c-card-title-color, var(--sys-text-main));
+	--_desc-color: var(--c-card-desc-color, var(--sys-text-muted));
+	--_action-color: var(--c-card-action-color, var(--sys-text-action)); /* Assuming link style */
+	--_action-color-hover: var(
+		--c-card-action-color-hover,
+		var(--sys-bg-action-hover)
+	); /* Using bg hover for text hover for now */
+
+	--_padding: var(--c-card-padding, var(--ref-space-6));
 
 	max-width: 340px;
 

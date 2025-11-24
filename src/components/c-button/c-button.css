@@ -6,18 +6,18 @@
 
 .c-button :where(button) {
 	/* Component Variables */
-	--_font-family: var(--sys-font-body);
-	--_font-weight: 600;
-	--_border-radius: 3em;
-	--_transition: all 0.2s ease-in-out;
+	--_font-family: var(--c-button-font-family, var(--sys-font-body));
+	--_font-weight: var(--c-button-font-weight, 600);
+	--_border-radius: var(--c-button-border-radius, 3em);
+	--_transition: var(--c-button-transition, all 0.2s ease-in-out);
 
 	/* Default (Primary) Variables */
-	--_color: var(--sys-text-inverse);
-	--_bg: var(--sys-bg-action);
-	--_shadow: var(--sys-elevation-base);
-	--_bg-hover: var(--sys-bg-action-hover);
-	--_shadow-hover: var(--sys-elevation-md);
-	--_transform-hover: translateY(-2px);
+	--_color: var(--c-button-color, var(--sys-text-inverse));
+	--_bg: var(--c-button-bg, var(--sys-bg-action));
+	--_shadow: var(--c-button-shadow, var(--sys-elevation-base));
+	--_bg-hover: var(--c-button-bg-hover, var(--sys-bg-action-hover));
+	--_shadow-hover: var(--c-button-shadow-hover, var(--sys-elevation-md));
+	--_transform-hover: var(--c-button-transform-hover, translateY(-2px));
 
 	display: inline-block;
 	font-family: var(--_font-family);
