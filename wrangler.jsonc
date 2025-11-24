@@ -1,0 +1,6 @@
+{
+	"name": "ui-catalog",
+	"assets": {
+		"directory": "./storybook-static"
+	}
+}
