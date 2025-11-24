@@ -1,9 +1,5 @@
 /* src/components/header/header.css */
 .c-header {
-	/* Define as container for style queries */
-	container-name: c-header;
-	container-type: normal;
-
 	/* Component Variables */
 	--_bg: var(--sys-bg-surface);
 	--_border-color: var(--sys-border-weak);
@@ -13,25 +9,29 @@
 	--_padding-x: var(--ref-space-5);
 
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
+	justify-content: space-between;
 	padding: var(--_padding-y) var(--_padding-x);
-	background-color: var(--_bg);
-	border-bottom: 1px solid var(--_border-color);
+
+	/* Define as container for style queries */
+	container-name: c-header;
+	container-type: normal;
 	font-family: var(--_font-family);
 	font-size: 1rem; /* Reset reference */
+	background-color: var(--_bg);
+	border-bottom: 1px solid var(--_border-color);
 }
 
 .c-header__logo {
-	font-weight: 900;
-	font-size: 1.25rem; /* 20px */
-	color: var(--_text-color);
 	display: flex;
-	align-items: center;
 	gap: var(--ref-space-2); /* 8px, close to 10px */
+	align-items: center;
+	font-size: 1.25rem; /* 20px */
+	font-weight: 900;
+	color: var(--_text-color);
 }
 
-.c-header__logo svg {
+.c-header__logo :where(svg) {
 	display: inline-block;
 	vertical-align: top;
 }

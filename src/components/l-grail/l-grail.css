@@ -1,18 +1,15 @@
 /* src/components/grail/grail.css */
 .l-grail {
 	display: grid;
+	grid-template:
+		'header' auto
+		'main' auto
+		'side' 1fr
+		'footer' auto
+		/ 1fr;
+	gap: var(--ref-space-5);
 	width: 100%;
 	min-height: 100vh;
-
-	/* Default Layout: Mobile (Stacked) */
-	grid-template-columns: 1fr;
-	grid-template-rows: auto auto 1fr auto auto;
-	grid-template-areas:
-		'header'
-		'main'
-		'side'
-		'footer';
-	gap: var(--ref-space-5);
 }
 
 .l-grail__header {

@@ -4,7 +4,7 @@
 	display: contents;
 }
 
-.c-button button {
+.c-button :where(button) {
 	/* Component Variables */
 	--_font-family: var(--sys-font-body);
 	--_font-weight: 600;
@@ -19,25 +19,25 @@
 	--_shadow-hover: var(--sys-elevation-md);
 	--_transform-hover: translateY(-2px);
 
+	display: inline-block;
 	font-family: var(--_font-family);
+	font-size: 1rem; /* Reset reference */
 	font-weight: var(--_font-weight);
+	line-height: 1;
+	color: var(--_color);
+	text-decoration: none;
+	cursor: pointer;
+	background: var(--_bg);
 	border: 0;
 	border-radius: var(--_border-radius);
-	cursor: pointer;
-	display: inline-block;
-	line-height: 1;
-	transition: var(--_transition);
-	text-decoration: none;
-	font-size: 1rem; /* Reset reference */
-	color: var(--_color);
-	background: var(--_bg);
 	box-shadow: var(--_shadow);
+	transition: var(--_transition);
 }
 
-.c-button button:hover {
+.c-button :where(button:hover) {
 	background: var(--_bg-hover);
-	transform: var(--_transform-hover);
 	box-shadow: var(--_shadow-hover);
+	transform: var(--_transform-hover);
 }
 
 /* =========================================
@@ -45,7 +45,7 @@
    ========================================= */
 
 @container style(--variant: secondary) {
-	.c-button button {
+	.c-button :where(button) {
 		--_color: var(--sys-text-main);
 		--_bg: transparent;
 		--_shadow: var(--sys-border-weak) 0px 0px 0px 1px inset;
@@ -53,7 +53,7 @@
 		--_shadow-hover: var(--sys-border-weak) 0px 0px 0px 1px inset;
 	}
 
-	.c-button button:hover {
+	.c-button :where(button:hover) {
 		background-color: var(--_bg-hover);
 	}
 }
@@ -63,22 +63,22 @@
    ========================================= */
 
 @container style(--size: small) {
-	.c-button button {
-		font-size: 0.75rem;
+	.c-button :where(button) {
 		padding: var(--ref-space-2) var(--ref-space-4);
+		font-size: 0.75rem;
 	}
 }
 
 @container style(--size: medium) {
-	.c-button button {
-		font-size: 0.875rem;
+	.c-button :where(button) {
 		padding: var(--ref-space-3) var(--ref-space-5);
+		font-size: 0.875rem;
 	}
 }
 
 @container style(--size: large) {
-	.c-button button {
-		font-size: 1rem;
+	.c-button :where(button) {
 		padding: var(--ref-space-4) var(--ref-space-6);
+		font-size: 1rem;
 	}
 }
