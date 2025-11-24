@@ -1,0 +1,49 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as GridStories from './l-grid.stories';
+
+<Meta of={GridStories} />
+
+# Grid Layout (`l-grid`)
+
+`l-grid` は、シンプルでレスポンシブなグリッドレイアウトを提供するコンポーネントです。
+`display: grid` をベースにしており、CSS変数を介してカラム数やアイテムの最小幅を制御できます。
+
+## Public API (CSS Variables)
+
+このコンポーネントは以下のCSS変数を公開しており、外部からカスタマイズ可能です。
+
+| 変数名                    | デフォルト値         | 説明                                     |
+| :------------------------ | :------------------- | :--------------------------------------- |
+| `--l-grid-gap`            | `var(--ref-space-5)` | グリッドアイテム間のギャップ。           |
+| `--l-grid-min-item-width` | `250px`              | `auto-fill` モード時のアイテムの最小幅。 |
+| `--l-grid-cols`           | `1`                  | 固定カラムモード時のカラム数。           |
+
+## 使用例
+
+### Auto-Fit (レスポンシブ)
+
+`--l-grid-min-item-width` を設定すると、コンテナの幅に合わせて自動的にカラム数が調整されます。
+
+```html
+<div class="l-grid" style="--l-grid-min-item-width: 300px;">
+	<div>Item 1</div>
+	<div>Item 2</div>
+	<div>Item 3</div>
+</div>
+```
+
+<Canvas of={GridStories.AutoFit} />
+
+### 固定カラム
+
+`--l-grid-cols` を設定すると、指定したカラム数で固定されます。
+
+```html
+<div class="l-grid" style="--l-grid-cols: 3;">
+	<div>Item 1</div>
+	<div>Item 2</div>
+	<div>Item 3</div>
+</div>
+```
+
+<Canvas of={GridStories.FixedColumns} />
