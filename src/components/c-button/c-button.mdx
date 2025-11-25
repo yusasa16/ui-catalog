@@ -1,0 +1,108 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './c-button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button (`c-button`)
+
+`c-button` は、アクションを実行するためのインタラクティブな要素です。
+CSS変数とStyle Queriesを使用して、バリアントやサイズを制御します。
+
+## Public API (CSS Variables)
+
+このコンポーネントは以下のCSS変数を公開しており、外部からカスタマイズ可能です。
+
+### コンテキスト変数（Style Queries用）
+
+| 変数名      | 値                             | 説明                       |
+| :---------- | :----------------------------- | :------------------------- |
+| `--variant` | `primary` \| `secondary`       | ボタンのスタイルバリアント |
+| `--size`    | `small` \| `medium` \| `large` | ボタンのサイズ             |
+
+### カスタマイズ変数
+
+| 変数名                       | デフォルト値                 | 説明                       |
+| :--------------------------- | :--------------------------- | :------------------------- |
+| `--c-button-font-family`     | `var(--sys-font-body)`       | フォントファミリー         |
+| `--c-button-font-weight`     | `600`                        | フォントウェイト           |
+| `--c-button-border-radius`   | `3em`                        | ボーダーの角丸             |
+| `--c-button-transition`      | `all 0.2s ease-in-out`       | トランジション             |
+| `--c-button-color`           | `var(--sys-text-inverse)`    | テキストカラー             |
+| `--c-button-bg`              | `var(--sys-bg-action)`       | 背景色                     |
+| `--c-button-shadow`          | `var(--sys-elevation-base)`  | ボックスシャドウ           |
+| `--c-button-bg-hover`        | `var(--sys-bg-action-hover)` | ホバー時の背景色           |
+| `--c-button-shadow-hover`    | `var(--sys-elevation-md)`    | ホバー時のシャドウ         |
+| `--c-button-transform-hover` | `translateY(-2px)`           | ホバー時のトランスフォーム |
+
+## 使用例
+
+### 基本
+
+<Canvas of={ButtonStories.Default} />
+
+<Controls of={ButtonStories.Default} />
+
+### Primary
+
+デフォルトのスタイル。主要なアクションに使用します。
+`--variant` と `--size` はデフォルト値（primary, medium）の場合、省略可能です。
+
+```html
+<button class="c-button" type="button">
+	<span>Button</span>
+</button>
+```
+
+<Canvas of={ButtonStories.Primary} />
+
+### Secondary
+
+二次的なアクションや、Primaryボタンと並べて使用する場合に適しています。
+
+```html
+<button class="c-button" style="--variant: secondary" type="button">
+	<span>Button</span>
+</button>
+```
+
+<Canvas of={ButtonStories.Secondary} />
+
+## サイズバリエーション
+
+### Small
+
+```html
+<button class="c-button" style="--size: small" type="button">
+	<span>Button</span>
+</button>
+```
+
+<Canvas of={ButtonStories.Small} />
+
+### Medium
+
+```html
+<button class="c-button" type="button">
+	<span>Button</span>
+</button>
+```
+
+<Canvas of={ButtonStories.Medium} />
+
+### Large
+
+```html
+<button class="c-button" style="--size: large" type="button">
+	<span>Button</span>
+</button>
+```
+
+<Canvas of={ButtonStories.Large} />
+
+## 設計思想
+
+このコンポーネントは「APIとしてのCSS」の設計思想に基づいています。
+
+- **Style Queries**: `@container style(--variant: ...)` を使用して、コンテキストに基づいてスタイルを適応
+- **カプセル化**: プライベート変数（`--_`プレフィックス）で内部実装を隠蔽し、パブリック変数でカスタマイズを提供
+- **構造の分離**: `button.c-button` がコンテナかつコンポーネントルート、内部の `span` がビジュアルスタイルを担当

@@ -1,10 +1,10 @@
-/* src/components/button/button.css */
-.c-button {
-	/* Container for Style Queries - No visual styles here */
-	display: contents;
-}
+/* src/components/c-button/c-button.css */
 
-.c-button :where(button) {
+/* =========================================
+   Button Container (Style Query Host)
+   ========================================= */
+
+.c-button {
 	/* Component Variables */
 	--_font-family: var(--c-button-font-family, var(--sys-font-body));
 	--_font-weight: var(--c-button-font-weight, 600);
@@ -20,21 +20,34 @@
 	--_transform-hover: var(--c-button-transform-hover, translateY(-2px));
 
 	display: inline-block;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	background: transparent;
+	border: 0;
+}
+
+/* =========================================
+   Button Inner (Visual Styles)
+   ========================================= */
+
+.c-button :where(span) {
+	display: inline-block;
+	padding: var(--ref-space-3) var(--ref-space-5); /* Default: medium */
 	font-family: var(--_font-family);
-	font-size: 1rem; /* Reset reference */
+	font-size: 0.875rem; /* Default: medium */
 	font-weight: var(--_font-weight);
 	line-height: 1;
 	color: var(--_color);
 	text-decoration: none;
-	cursor: pointer;
 	background: var(--_bg);
-	border: 0;
 	border-radius: var(--_border-radius);
 	box-shadow: var(--_shadow);
 	transition: var(--_transition);
 }
 
-.c-button :where(button:hover) {
+.c-button:hover :where(span) {
 	background: var(--_bg-hover);
 	box-shadow: var(--_shadow-hover);
 	transform: var(--_transform-hover);
@@ -45,16 +58,12 @@
    ========================================= */
 
 @container style(--variant: secondary) {
-	.c-button :where(button) {
+	.c-button {
 		--_color: var(--sys-text-main);
 		--_bg: transparent;
 		--_shadow: var(--sys-border-weak) 0px 0px 0px 1px inset;
 		--_bg-hover: var(--sys-bg-muted);
 		--_shadow-hover: var(--sys-border-weak) 0px 0px 0px 1px inset;
-	}
-
-	.c-button :where(button:hover) {
-		background-color: var(--_bg-hover);
 	}
 }
 
@@ -63,21 +72,14 @@
    ========================================= */
 
 @container style(--size: small) {
-	.c-button :where(button) {
+	.c-button :where(span) {
 		padding: var(--ref-space-2) var(--ref-space-4);
 		font-size: 0.75rem;
 	}
 }
 
-@container style(--size: medium) {
-	.c-button :where(button) {
-		padding: var(--ref-space-3) var(--ref-space-5);
-		font-size: 0.875rem;
-	}
-}
-
 @container style(--size: large) {
-	.c-button :where(button) {
+	.c-button :where(span) {
 		padding: var(--ref-space-4) var(--ref-space-6);
 		font-size: 1rem;
 	}
