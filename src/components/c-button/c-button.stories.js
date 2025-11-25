@@ -65,55 +65,53 @@ const options = {
 const createButton = (args) => {
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(buttonHtml, 'text/html');
-	const button = doc.querySelector('.c-button');
+	const wrapper = doc.querySelector('.c-button');
 
-	// コンテキスト変数（variant, size）
+	// コンテキスト変数（variant, size）- デフォルト値以外の場合のみ設定
 	if (args.variant !== defaults.variant) {
-		button.style.setProperty('--variant', args.variant);
+		wrapper.style.setProperty('--variant', args.variant);
 	}
 	if (args.size !== defaults.size) {
-		button.style.setProperty('--size', args.size);
+		wrapper.style.setProperty('--size', args.size);
 	}
 
 	// パブリックAPI変数
 	if (args.fontFamily) {
-		button.style.setProperty('--c-button-font-family', args.fontFamily);
+		wrapper.style.setProperty('--c-button-font-family', args.fontFamily);
 	}
 	if (args.fontWeight) {
-		button.style.setProperty('--c-button-font-weight', args.fontWeight);
+		wrapper.style.setProperty('--c-button-font-weight', args.fontWeight);
 	}
 	if (args.color) {
-		button.style.setProperty('--c-button-color', args.color);
+		wrapper.style.setProperty('--c-button-color', args.color);
 	}
 	if (args.bg) {
-		button.style.setProperty('--c-button-bg', args.bg);
+		wrapper.style.setProperty('--c-button-bg', args.bg);
 	}
 	if (args.bgHover) {
-		button.style.setProperty('--c-button-bg-hover', args.bgHover);
+		wrapper.style.setProperty('--c-button-bg-hover', args.bgHover);
 	}
 	if (args.shadow) {
-		button.style.setProperty('--c-button-shadow', args.shadow);
+		wrapper.style.setProperty('--c-button-shadow', args.shadow);
 	}
 	if (args.shadowHover) {
-		button.style.setProperty('--c-button-shadow-hover', args.shadowHover);
+		wrapper.style.setProperty('--c-button-shadow-hover', args.shadowHover);
 	}
 	if (args.transition) {
-		button.style.setProperty('--c-button-transition', args.transition);
+		wrapper.style.setProperty('--c-button-transition', args.transition);
 	}
-
-	// 角丸とホバー移動
 	if (args.borderRadius) {
-		button.style.setProperty('--c-button-border-radius', args.borderRadius);
+		wrapper.style.setProperty('--c-button-border-radius', args.borderRadius);
 	}
 	if (args.hoverY) {
-		button.style.setProperty('--c-button-transform-hover', `translateY(${args.hoverY})`);
+		wrapper.style.setProperty('--c-button-transform-hover', `translateY(${args.hoverY})`);
 	}
 
 	// ボタンのラベルを変更
-	const span = button.querySelector('span');
-	span.textContent = args.label;
+	const button = wrapper.querySelector('button');
+	button.textContent = args.label;
 
-	return button.outerHTML;
+	return wrapper.outerHTML;
 };
 
 export default {
@@ -273,7 +271,6 @@ export default {
 		label: 'Button',
 		variant: 'primary',
 		size: 'medium',
-		// API変数はデフォルトでは空（CSSのデフォルト値を使用）
 	},
 };
 

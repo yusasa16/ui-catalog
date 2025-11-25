@@ -48,9 +48,9 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 `--variant` と `--size` はデフォルト値（primary, medium）の場合、省略可能です。
 
 ```html
-<button class="c-button" type="button">
-	<span>Button</span>
-</button>
+<div class="c-button">
+	<button type="button">Button</button>
+</div>
 ```
 
 <Canvas of={ButtonStories.Primary} />
@@ -60,9 +60,9 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 二次的なアクションや、Primaryボタンと並べて使用する場合に適しています。
 
 ```html
-<button class="c-button" style="--variant: secondary" type="button">
-	<span>Button</span>
-</button>
+<div class="c-button" style="--variant: secondary">
+	<button type="button">Button</button>
+</div>
 ```
 
 <Canvas of={ButtonStories.Secondary} />
@@ -72,9 +72,9 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 ### Small
 
 ```html
-<button class="c-button" style="--size: small" type="button">
-	<span>Button</span>
-</button>
+<div class="c-button" style="--size: small">
+	<button type="button">Button</button>
+</div>
 ```
 
 <Canvas of={ButtonStories.Small} />
@@ -82,9 +82,9 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 ### Medium
 
 ```html
-<button class="c-button" type="button">
-	<span>Button</span>
-</button>
+<div class="c-button">
+	<button type="button">Button</button>
+</div>
 ```
 
 <Canvas of={ButtonStories.Medium} />
@@ -92,17 +92,74 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 ### Large
 
 ```html
-<button class="c-button" style="--size: large" type="button">
-	<span>Button</span>
-</button>
+<div class="c-button" style="--size: large">
+	<button type="button">Button</button>
+</div>
 ```
 
 <Canvas of={ButtonStories.Large} />
+
+## コンテキストベースのスタイリング
+
+親コンポーネントで `--variant` を設定すると、子の `c-button` が自動的に適応します。
+
+```html
+<div class="c-card" style="--variant: secondary">
+	<!-- この中のボタンは自動的にsecondaryスタイルになる -->
+	<div class="c-button">
+		<button type="button">Button</button>
+	</div>
+</div>
+```
 
 ## 設計思想
 
 このコンポーネントは「APIとしてのCSS」の設計思想に基づいています。
 
-- **Style Queries**: `@container style(--variant: ...)` を使用して、コンテキストに基づいてスタイルを適応
+- **Style Queries**: `@container style(--variant: ...)` を使用して、親から渡されたコンテキストに基づいてスタイルを適応
 - **カプセル化**: プライベート変数（`--_`プレフィックス）で内部実装を隠蔽し、パブリック変数でカスタマイズを提供
-- **構造の分離**: `button.c-button` がコンテナかつコンポーネントルート、内部の `span` がビジュアルスタイルを担当
+- **display: contents**: `.c-button` ラッパーは `display: contents` を使用し、レイアウトに影響を与えない
+
+## 設計上のトレードオフ
+
+### なぜ `<button>` をコンポーネントルートにしないのか
+
+理想的には `<button class="c-button">` のようにbutton要素をルートにしたいが、Style Queriesの制約により断念した。
+
+**Style Queriesの親子関係の制約**
+
+`@container style(--variant: secondary)` は、コンテナの**子孫要素**に対してのみ適用され、**コンテナ自身には適用されない**。
+
+```css
+/* これは動作しない - コンテナ自身のスタイルは変更できない */
+@container style(--variant: secondary) {
+	.c-button {
+		--_bg: transparent; /* 適用されない */
+	}
+}
+```
+
+button要素をルートにした場合、button自身がコンテナとなるため、Style Queryで内部変数を上書きできない。
+
+### 検討した代替案
+
+1. **`<button>` + 内部 `<span>`**
+   - buttonがコンテナ、spanにビジュアルスタイルを適用
+   - 問題: 内部変数の上書きはbuttonで行いたいが、Style Queryはspanにしか適用されない
+
+2. **data属性によるmodifier**
+   - `<button class="c-button" data-variant="secondary">`
+   - 問題: 親コンポーネントからのコンテキスト継承ができなくなる（CSSだけで親から子のバリアントを変更できない）
+
+### 採用した構造
+
+```html
+<div class="c-button" style="--variant: secondary">
+	<button type="button">Button</button>
+</div>
+```
+
+- **div**: Style Queriesのホスト（コンテナ）、内部変数の定義と上書き
+- **button**: 子孫要素として内部変数を継承し、ビジュアルスタイルを適用
+
+この構造により、親コンポーネントからのコンテキスト継承と、内部変数によるカプセル化の両立を実現している。
