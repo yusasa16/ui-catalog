@@ -6,13 +6,27 @@ import * as ButtonStories from './c-button.stories';
 # Button (`c-button`)
 
 `c-button` は、アクションを実行するためのインタラクティブな要素です。
-CSS変数とStyle Queriesを使用して、バリアントやサイズを制御します。
+**CSS `if()` 関数**を使用して、バリアントやサイズを制御します。
+
+## 🎉 新しい設計
+
+CSS `if()` 関数の採用により、以前の設計で必要だった**ラッパー要素が不要**になりました。
+
+```html
+<!-- ✅ 新しい構造（シンプル！） -->
+<button class="c-button" type="button">Button</button>
+
+<!-- ❌ 以前の構造（ラッパーが必要だった） -->
+<div class="c-button">
+  <button type="button">Button</button>
+</div>
+```
 
 ## Public API (CSS Variables)
 
 このコンポーネントは以下のCSS変数を公開しており、外部からカスタマイズ可能です。
 
-### コンテキスト変数（Style Queries用）
+### コンテキスト変数（`if()` による条件分岐）
 
 | 変数名      | 値                             | 説明                       |
 | :---------- | :----------------------------- | :------------------------- |
@@ -48,9 +62,7 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 `--variant` と `--size` はデフォルト値（primary, medium）の場合、省略可能です。
 
 ```html
-<div class="c-button">
-	<button type="button">Button</button>
-</div>
+<button class="c-button" type="button">Button</button>
 ```
 
 <Canvas of={ButtonStories.Primary} />
@@ -60,9 +72,7 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 二次的なアクションや、Primaryボタンと並べて使用する場合に適しています。
 
 ```html
-<div class="c-button" style="--variant: secondary">
-	<button type="button">Button</button>
-</div>
+<button class="c-button" style="--variant: secondary" type="button">Button</button>
 ```
 
 <Canvas of={ButtonStories.Secondary} />
@@ -72,9 +82,7 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 ### Small
 
 ```html
-<div class="c-button" style="--size: small">
-	<button type="button">Button</button>
-</div>
+<button class="c-button" style="--size: small" type="button">Button</button>
 ```
 
 <Canvas of={ButtonStories.Small} />
@@ -82,9 +90,7 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 ### Medium
 
 ```html
-<div class="c-button">
-	<button type="button">Button</button>
-</div>
+<button class="c-button" type="button">Button</button>
 ```
 
 <Canvas of={ButtonStories.Medium} />
@@ -92,74 +98,71 @@ CSS変数とStyle Queriesを使用して、バリアントやサイズを制御�
 ### Large
 
 ```html
-<div class="c-button" style="--size: large">
-	<button type="button">Button</button>
-</div>
+<button class="c-button" style="--size: large" type="button">Button</button>
 ```
 
 <Canvas of={ButtonStories.Large} />
 
-## コンテキストベースのスタイリング
+## 状態
 
-親コンポーネントで `--variant` を設定すると、子の `c-button` が自動的に適応します。
+### Disabled
 
 ```html
-<div class="c-card" style="--variant: secondary">
+<button class="c-button" type="button" disabled>Button</button>
+```
+
+<Canvas of={ButtonStories.Disabled} />
+
+## コンテキストベースのスタイリング
+
+CSS変数は継承されるため、親コンポーネントで `--variant` を設定すると、子の `c-button` が自動的に適応します。
+
+```html
+<div style="--variant: secondary">
 	<!-- この中のボタンは自動的にsecondaryスタイルになる -->
-	<div class="c-button">
-		<button type="button">Button</button>
-	</div>
+	<button class="c-button" type="button">Button</button>
 </div>
 ```
+
+<Canvas of={ButtonStories.ContextInheritance} />
 
 ## 設計思想
 
 このコンポーネントは「APIとしてのCSS」の設計思想に基づいています。
 
-- **Style Queries**: `@container style(--variant: ...)` を使用して、親から渡されたコンテキストに基づいてスタイルを適応
-- **カプセル化**: プライベート変数（`--_`プレフィックス）で内部実装を隠蔽し、パブリック変数でカスタマイズを提供
-- **display: contents**: `.c-button` ラッパーは `display: contents` を使用し、レイアウトに影響を与えない
+### CSS `if()` 関数の活用
 
-## 設計上のトレードオフ
-
-### なぜ `<button>` をコンポーネントルートにしないのか
-
-理想的には `<button class="c-button">` のようにbutton要素をルートにしたいが、Style Queriesの制約により断念した。
-
-**Style Queriesの親子関係の制約**
-
-`@container style(--variant: secondary)` は、コンテナの**子孫要素**に対してのみ適用され、**コンテナ自身には適用されない**。
+従来の Style Queries（`@container style(...)`）には「コンテナ自身には適用されない」という制約がありました。
+CSS `if()` 関数を使用することで、この制約を回避し、**button要素を直接コンポーネントルートに**できるようになりました。
 
 ```css
-/* これは動作しない - コンテナ自身のスタイルは変更できない */
-@container style(--variant: secondary) {
-	.c-button {
-		--_bg: transparent; /* 適用されない */
-	}
+.c-button {
+	/* if() で variant に応じた値を決定 */
+	--_bg: if(
+		style(--variant: secondary): transparent;
+		else: var(--sys-bg-action)
+	);
+
+	background: var(--_bg);
 }
 ```
 
-button要素をルートにした場合、button自身がコンテナとなるため、Style Queryで内部変数を上書きできない。
+### 利点
 
-### 検討した代替案
+1. **セマンティックなHTML**: 余分なラッパー要素が不要
+2. **コンテキスト継承**: CSS変数の継承により、親から子へのスタイル伝播が可能
+3. **カプセル化**: プライベート変数（`--_`プレフィックス）で内部実装を隠蔽
 
-1. **`<button>` + 内部 `<span>`**
-   - buttonがコンテナ、spanにビジュアルスタイルを適用
-   - 問題: 内部変数の上書きはbuttonで行いたいが、Style Queryはspanにしか適用されない
+### ブラウザサポート
 
-2. **data属性によるmodifier**
-   - `<button class="c-button" data-variant="secondary">`
-   - 問題: 親コンポーネントからのコンテキスト継承ができなくなる（CSSだけで親から子のバリアントを変更できない）
+CSS `if()` 関数は **Chrome 137+**（2025年6月〜）でサポートされています。
 
-### 採用した構造
-
-```html
-<div class="c-button" style="--variant: secondary">
-	<button type="button">Button</button>
-</div>
+```css
+/* サポート状況（2025年時点） */
+/* Chrome 137+  ✅ */
+/* Firefox      🔄 実装中 */
+/* Safari       ❌ 未実装 */
 ```
 
-- **div**: Style Queriesのホスト（コンテナ）、内部変数の定義と上書き
-- **button**: 子孫要素として内部変数を継承し、ビジュアルスタイルを適用
-
-この構造により、親コンポーネントからのコンテキスト継承と、内部変数によるカプセル化の両立を実現している。
+> **Note**: このプロジェクトは「理想的なCSS設計」を追求する実験的なカタログです。
+> プロダクション環境では、ブラウザサポートを考慮した判断が必要です。

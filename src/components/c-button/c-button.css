@@ -1,37 +1,72 @@
 /* src/components/c-button/c-button.css */
 
 /* =========================================
-   Button Container (Style Query Host)
+   Button Component
+   
+   CSS if() を使用することで、Style Queries の制約
+   （コンテナ自身には適用されない）を回避し、
+   button要素を直接コンポーネントルートにできる。
    ========================================= */
 
 .c-button {
-	/* Container for Style Queries - No visual styles here */
-	display: contents;
-}
+	/* =========================================
+	   Component Variables (Private)
+	   if() で variant/size に応じた値を決定
+	   ========================================= */
 
-/* =========================================
-   Button Element (Visual Styles)
-   ========================================= */
+	/* --- Variant-dependent variables --- */
+	--_color: if(
+		style(--variant: secondary): var(--c-button-color, var(--sys-text-main));
+		else: var(--c-button-color, var(--sys-text-inverse))
+	);
+	--_bg: if(
+		style(--variant: secondary): var(--c-button-bg, transparent);
+		else: var(--c-button-bg, var(--sys-bg-action))
+	);
+	--_shadow: if(
+		style(--variant: secondary): var(--c-button-shadow, var(--sys-border-weak) 0 0 0 1px inset);
+		else: var(--c-button-shadow, var(--sys-elevation-base))
+	);
+	--_bg-hover: if(
+		style(--variant: secondary): var(--c-button-bg-hover, var(--sys-bg-muted));
+		else: var(--c-button-bg-hover, var(--sys-bg-action-hover))
+	);
+	--_shadow-hover: if(
+		style(--variant: secondary): var(--c-button-shadow-hover, var(--sys-border-weak) 0 0 0 1px inset);
+		else: var(--c-button-shadow-hover, var(--sys-elevation-md))
+	);
 
-.c-button :where(button) {
-	/* Component Variables */
+	/* --- Size-dependent variables --- */
+	--_padding: if(
+		style(--size: small): var(--ref-space-2) var(--ref-space-4);
+		else: if(
+			style(--size: large): var(--ref-space-4) var(--ref-space-6);
+			else: var(--ref-space-3) var(--ref-space-5)
+		)
+	);
+	--_font-size: if(
+		style(--size: small): 0.75rem;
+		else: if(
+			style(--size: large): 1rem;
+			else: 0.875rem
+		)
+	);
+
+	/* --- Constant variables --- */
 	--_font-family: var(--c-button-font-family, var(--sys-font-body));
 	--_font-weight: var(--c-button-font-weight, 600);
 	--_border-radius: var(--c-button-border-radius, 3em);
 	--_transition: var(--c-button-transition, all 0.2s ease-in-out);
-
-	/* Default (Primary) Variables */
-	--_color: var(--c-button-color, var(--sys-text-inverse));
-	--_bg: var(--c-button-bg, var(--sys-bg-action));
-	--_shadow: var(--c-button-shadow, var(--sys-elevation-base));
-	--_bg-hover: var(--c-button-bg-hover, var(--sys-bg-action-hover));
-	--_shadow-hover: var(--c-button-shadow-hover, var(--sys-elevation-md));
 	--_transform-hover: var(--c-button-transform-hover, translateY(-2px));
 
+	/* =========================================
+	   Visual Styles
+	   ========================================= */
+
 	display: inline-block;
-	padding: var(--ref-space-3) var(--ref-space-5); /* Default: medium */
+	padding: var(--_padding);
 	font-family: var(--_font-family);
-	font-size: 0.875rem; /* Default: medium */
+	font-size: var(--_font-size);
 	font-weight: var(--_font-weight);
 	line-height: 1;
 	color: var(--_color);
@@ -44,40 +79,32 @@
 	transition: var(--_transition);
 }
 
-.c-button :where(button:hover) {
+.c-button:where(:hover) {
 	background: var(--_bg-hover);
 	box-shadow: var(--_shadow-hover);
 	transform: var(--_transform-hover);
 }
 
 /* =========================================
-   Variant: Secondary (Contextual)
+   Focus State
    ========================================= */
 
-@container style(--variant: secondary) {
-	.c-button :where(button) {
-		--_color: var(--sys-text-main);
-		--_bg: transparent;
-		--_shadow: var(--sys-border-weak) 0 0 0 1px inset;
-		--_bg-hover: var(--sys-bg-muted);
-		--_shadow-hover: var(--sys-border-weak) 0 0 0 1px inset;
-	}
+.c-button:where(:focus-visible) {
+	outline: 2px solid var(--sys-bg-action);
+	outline-offset: 2px;
 }
 
 /* =========================================
-   Size Variants (Contextual)
+   Disabled State
    ========================================= */
 
-@container style(--size: small) {
-	.c-button :where(button) {
-		padding: var(--ref-space-2) var(--ref-space-4);
-		font-size: 0.75rem;
-	}
+.c-button:where(:disabled) {
+	cursor: not-allowed;
+	opacity: 0.5;
 }
 
-@container style(--size: large) {
-	.c-button :where(button) {
-		padding: var(--ref-space-4) var(--ref-space-6);
-		font-size: 1rem;
-	}
+.c-button:where(:disabled:hover) {
+	background: var(--_bg);
+	box-shadow: var(--_shadow);
+	transform: none;
 }
