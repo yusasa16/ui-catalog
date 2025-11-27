@@ -65,53 +65,57 @@ const options = {
 const createButton = (args) => {
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(buttonHtml, 'text/html');
-	const wrapper = doc.querySelector('.c-button');
+	const button = doc.querySelector('.c-button');
 
 	// コンテキスト変数（variant, size）- デフォルト値以外の場合のみ設定
 	if (args.variant !== defaults.variant) {
-		wrapper.style.setProperty('--variant', args.variant);
+		button.style.setProperty('--variant', args.variant);
 	}
 	if (args.size !== defaults.size) {
-		wrapper.style.setProperty('--size', args.size);
+		button.style.setProperty('--size', args.size);
 	}
 
 	// パブリックAPI変数
 	if (args.fontFamily) {
-		wrapper.style.setProperty('--c-button-font-family', args.fontFamily);
+		button.style.setProperty('--c-button-font-family', args.fontFamily);
 	}
 	if (args.fontWeight) {
-		wrapper.style.setProperty('--c-button-font-weight', args.fontWeight);
+		button.style.setProperty('--c-button-font-weight', args.fontWeight);
 	}
 	if (args.color) {
-		wrapper.style.setProperty('--c-button-color', args.color);
+		button.style.setProperty('--c-button-color', args.color);
 	}
 	if (args.bg) {
-		wrapper.style.setProperty('--c-button-bg', args.bg);
+		button.style.setProperty('--c-button-bg', args.bg);
 	}
 	if (args.bgHover) {
-		wrapper.style.setProperty('--c-button-bg-hover', args.bgHover);
+		button.style.setProperty('--c-button-bg-hover', args.bgHover);
 	}
 	if (args.shadow) {
-		wrapper.style.setProperty('--c-button-shadow', args.shadow);
+		button.style.setProperty('--c-button-shadow', args.shadow);
 	}
 	if (args.shadowHover) {
-		wrapper.style.setProperty('--c-button-shadow-hover', args.shadowHover);
+		button.style.setProperty('--c-button-shadow-hover', args.shadowHover);
 	}
 	if (args.transition) {
-		wrapper.style.setProperty('--c-button-transition', args.transition);
+		button.style.setProperty('--c-button-transition', args.transition);
 	}
 	if (args.borderRadius) {
-		wrapper.style.setProperty('--c-button-border-radius', args.borderRadius);
+		button.style.setProperty('--c-button-border-radius', args.borderRadius);
 	}
 	if (args.hoverY) {
-		wrapper.style.setProperty('--c-button-transform-hover', `translateY(${args.hoverY})`);
+		button.style.setProperty('--c-button-transform-hover', `translateY(${args.hoverY})`);
+	}
+
+	// disabled状態
+	if (args.disabled) {
+		button.disabled = true;
 	}
 
 	// ボタンのラベルを変更
-	const button = wrapper.querySelector('button');
 	button.textContent = args.label;
 
-	return wrapper.outerHTML;
+	return button.outerHTML;
 };
 
 export default {
@@ -147,6 +151,17 @@ export default {
 				category: 'Context',
 				type: { summary: 'small | medium | large' },
 				defaultValue: { summary: 'medium' },
+			},
+		},
+
+		// === States ===
+		disabled: {
+			control: 'boolean',
+			description: '無効状態',
+			table: {
+				category: 'States',
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
 			},
 		},
 
@@ -271,6 +286,7 @@ export default {
 		label: 'Button',
 		variant: 'primary',
 		size: 'medium',
+		disabled: false,
 	},
 };
 
@@ -313,6 +329,13 @@ export const Large = {
 	render: (args) => createButton(args),
 };
 
+export const Disabled = {
+	args: {
+		disabled: true,
+	},
+	render: (args) => createButton(args),
+};
+
 export const CustomColors = {
 	args: {
 		bg: '#e91e63',
@@ -320,4 +343,17 @@ export const CustomColors = {
 		color: '#ffffff',
 	},
 	render: (args) => createButton(args),
+};
+
+/**
+ * 親コンポーネントからのコンテキスト継承のデモ
+ * CSS変数は継承されるため、親で設定した--variantが子のボタンに適用される
+ */
+export const ContextInheritance = {
+	render: () => `
+<div style="--variant: secondary; display: flex; gap: 16px; padding: 24px; background: var(--sys-bg-surface); border-radius: 8px;">
+	<p style="margin: 0; color: var(--sys-text-main);">親で <code>--variant: secondary</code> を設定:</p>
+	<button class="c-button" type="button">継承されたボタン</button>
+</div>
+	`,
 };
